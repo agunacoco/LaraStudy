@@ -5,7 +5,6 @@
         <div class="my-2">
             <p>{{ $post->title }}</p>
             <p>{{ $post->content }}</p> 
-            <p>{{ $post->created_at }}</p>
         </div>
     @endforeach
 </div>
