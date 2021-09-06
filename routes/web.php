@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +14,14 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/layout', function () {
-    return view('layouts.app');
-});
-Route::get('/hi', function () {
-    return view('hello');
-});
+// resource는 네임이 지정되어 있기 때문에 name을 지정해주면 안된다.
+Route::resource('/posts', PostsController::class)->middleware(['auth']);
 
-// resource가 호출되기 전에 사용할 컨트롤러를 등록해야한다.
-// 라우터링크 리스트를 보려면 php artisan route:list
-//Route::resource('/posts', PostsController::class);
+Route::get('/', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+// auth.php에 가면 로그인에 대한 라우터가 정의되어 있다.
+require __DIR__.'/auth.php';
+
+

@@ -10,11 +10,14 @@ class PostList extends Component
     // 컴포넌트의 모든 공용 속성은 컴포넌트보기에 자동으로 제공.
     public $name = 'agunacoco'; // 변수 선언
     public $posts;
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
+
+    // 받은 데이터는 construct에서 사용.
     public function __construct($posts)
     {
         $this->posts = $posts;
