@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory; // trait
-
+    
+    // 모델에 배열을 직접 전달하여 데베를 변경할 때 개발자가 명시적으로 입력이 가능한 컬럼을 지정해 주어야 한다.
     protected $fillable = [
         'title',
         'content',
