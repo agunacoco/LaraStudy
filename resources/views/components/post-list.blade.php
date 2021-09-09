@@ -1,5 +1,5 @@
-<div>
-    <table class="table table-hover mt-5">
+<div class="m-4 p-4">
+    <table class="table table-hover p-10">
         <thead>
           <tr>
             <th scope="col">Title</th>
