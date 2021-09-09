@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
+// 생성자
 class PostList extends Component
 {
     // 클래스 생성자에서 컴포넌트의 필수 데이터를 정의.
