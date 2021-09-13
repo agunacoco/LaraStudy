@@ -60,7 +60,7 @@ class PostsController extends Controller
             $path = $request->file('image')->storeAs('public/images', $filename);
         }
         // array_merge는 배열끼리 합쳐서 새로운 배열을 생성해주는 함수.
-        $input = array_merge                                        ($request->all(), ['user_id'=> Auth::user()->id]);
+        $input = array_merge($request->all(), ['user_id'=> Auth::user()->id]);
         if($filename){
             $input = array_merge($input, ['image'=>$filename]);
         }
