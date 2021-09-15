@@ -68,6 +68,7 @@ class PostsController extends Controller
         // mass assignment
         // Eloquent model의 white list인 $fillable에 기술해야 한다.
         // post 모델에 정의된 $fillable에 정의된 컬럼만 사용가능하다.
+        // 명시적으로 정의된 컬럼외에는 배열에 값이 있어도 무시된다.
         Post::create($input);
 
         // post방식으로 전달하면 view보다 redirect를 한다.
