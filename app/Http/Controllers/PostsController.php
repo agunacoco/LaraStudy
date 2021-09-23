@@ -22,7 +22,7 @@ class PostsController extends Controller
         
         // latest 와 oldest 메소드는 여러준이 손쉽게 날짜를 기반으로 결과를 정렬. 
         // 기본적으로 결과는 created_at 컬럼을 기준으로 정렬.
-        $posts = Post::latest('updated_at')->paginate(5);
+        $posts = Post::latest('updated_at')->paginate(6);
         
         return view('bbs.index', ['posts'=>$posts]);
     }
@@ -95,7 +95,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('bbs.edit', ['post'=>$post]);
     }
 
     /**
@@ -107,7 +109,20 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required|min:3',
+        ]);
+
+        $post = Post::find($id);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return redirect()->route();
     }
 
     /**
@@ -116,8 +131,12 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        // DI, Dependency, Injection, 의존성 주입
+        // dd($request);
+        Post::find($id)->delete();
+
+        return redirect()->route('posts.index');
     }
 }
