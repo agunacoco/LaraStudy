@@ -158,12 +158,13 @@ class PostsController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function deleteImage(Request $request, $id){
-        
+    public function deleteImage($id)
+    {
         $post = Post::find($id);
         Storage::delete('public/images'.$post->image);
         $post->image = null;
         $post->save();
+
         return redirect()->route('posts.edit', ['post'=>$post->id]);
     }
 }
