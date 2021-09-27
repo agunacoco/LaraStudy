@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 // controller를 만들기 전에 php artisan make:controller PhotoController --resource를 입력하는데
 // --resource는 이 컨트롤러는 각각의 resource에 해당하는 메소드들을 가지고 있다.
@@ -107,6 +108,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // url 라우터 파라미터로부터 $id를 받았다.
     public function update(Request $request, $id)
     {
 
@@ -117,12 +120,23 @@ class PostsController extends Controller
 
         $post = Post::find($id);
 
+        if($request->hasFile('image')){
+
+            if($post->image){
+                Storage::delete('public/images/'.$post->image);
+            }
+            $filename = time().'_'.$request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('public/images', $filename);
+            $post->image = $filename;
+
+        }
+       
         $post->title = $request->title;
         $post->content = $request->content;
 
         $post->save();
 
-        return redirect()->route();
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -135,8 +149,21 @@ class PostsController extends Controller
     {
         // DI, Dependency, Injection, 의존성 주입
         // dd($request);
-        Post::find($id)->delete();
+        $post = Post::find($id);
+        if($post->image){
+            Storage::delete('public/images/'.$post->image);
+        }
+        $post->delete();
 
         return redirect()->route('posts.index');
+    }
+
+    public function deleteImage(Request $request, $id){
+        
+        $post = Post::find($id);
+        Storage::delete('public/images'.$post->image);
+        $post->image = null;
+        $post->save();
+        return redirect()->route('posts.edit', ['post'=>$post->id]);
     }
 }

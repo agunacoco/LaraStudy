@@ -8,7 +8,7 @@
         </div>
     </x-slot>
     <div class="p-4 m-4">
-        <form action="{{route('posts.update', ['post'=>$post->id])}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('posts.update', ['post'=>$post->id])}}" method="post" enctype="multipart/form-data" >
             @csrf
             @method('patch')
             <div class="form-group">
@@ -30,14 +30,31 @@
                     <label for="file" class="form-label">File</label>
                     @if ($post->image)
                     <img src="{{ '/storage/images/'.$post->image }}" class="card-img-top p-2 mt-3 ml-auto mr-auto"  alt="my post image" style="width:50%">  
+                    <button class="btn btn-outline-secondary my-2" onclick="return deleteImage()">이미지 삭제</button>
                     @else
                     <img src="{{ '/storage/images/'.'no_image.png' }}" class="img-fluid rounded-start" alt="no image" style="width:50%">
                     @endif
                     <input type="file" class="form-control" name="image" id="image" rows="3" />
+                    
                 </div>
                 <button type="submit" class="btn btn-primary  hover:bg-blue-700">Submit</button>
             </div>
             
         </form>
+        <script>
+            function deleteImage(){
+                // getElementById는 id가 editForm인 form을 찾는다
+                editForm = document.getElementById('editForm'); 
+                editForm.alert('Fo');
+                // method는http 요청 타입
+                // value는 서버에 전송할 필드 값
+                editForm._method.value = 'delete';
+                // action은 요청을 보낼 URL
+                editForm.action = '/posts/images/{{ $post->id }}';
+                // submit()은 form을 전송
+                editForm.submit();
+                return false;
+            }
+        </script>
     </div>
 </x-app-layout>

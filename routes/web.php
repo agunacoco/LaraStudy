@@ -16,7 +16,7 @@ use App\Http\Controllers\PostsController;
 
 // resource는 네임이 지정되어 있기 때문에 name을 지정해주면 안된다.
 Route::resource('/posts', PostsController::class)->middleware(['auth']);
-
+Route::delete('/posts/image/{id}',[ PostsController::class,'deleteImage'])->middleware(['auth']);
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
