@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\LikesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::resource('/posts', PostsController::class)->middleware(['auth']);
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name("like.store");
 
 // 요청을 보내는 http method 
 // get 서버 자원을 읽을 때
