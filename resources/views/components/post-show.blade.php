@@ -14,7 +14,10 @@
             <h5 class="card-title text-2xl md:font-black">{{ $post->title }}</h5>
             <div class="flex">
               <h6 class="card-subtitle mb-2 text-lg text-muted">{{ $post->user->name}}</h6>
-              <like-button class=""/>
+              <div class="ml-3">
+                {{-- lazy lodding --}}
+                <like-button :post="{{ $post}}" :loginuser="{{  auth()->user()->id }}"/>
+              </div>
             </div><hr>
             
             <p class="card-text text-lg md:font-bold mt-3 mb-4">{{ $post->content }}</p>
@@ -51,17 +54,4 @@
         </form>
       </div>
   </div>
-
-  <script>
-    function onDelete(e){
-      myform = document.getElementById('form');
-      flag = confirm('삭제하시겠습니까?');
-      if(flag){
-        myform.submit();
-      }else{
-        e.preventDefault(); 
-      }
-    }
-  </script>
-
 </div>

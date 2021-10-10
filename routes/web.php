@@ -26,6 +26,7 @@ Route::get('/', function () {
 
 Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name("like.store");
 
+
 // 요청을 보내는 http method 
 // get 서버 자원을 읽을 때
 // post 서버 자원을 변경할 때

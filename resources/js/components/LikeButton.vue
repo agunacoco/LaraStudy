@@ -36,15 +36,37 @@
 </template>
 <script>
 export default {
+  props: ["post", "loginuser"],
   data() {
     return {
       like: false,
+      userIdArray: [],
     };
   },
   methods: {
     likeClicked() {
-      this.like = !this.like;
+      // csrf는 자동으로 설정되어 있다.
+      // 서버에 like/unlike 요청 보내기.
+      axios
+        .post("/like/" + this.post.id)
+        .then((response) => {
+          console.log(response.data);
+          this.like = !this.like;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+    checkLikes() {
+      this.like = this.userIdArray.includes(this.loginuser);
+    },
+  },
+  created() {
+    // id를 모아 새로운 배열 만들고 새로 만든 배열을 userIdArray에 담는다.
+    this.userIdArray = this.post.likers.map((elem) => {
+      return elem.id;
+    });
+    this.checkLikes();
   },
 };
 </script>

@@ -14,7 +14,12 @@
             <div class="card-body">
               <h5 class="card-title text-xl font-bold">{{ $post->title }}</h5>
             </a>
-              <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name}}</h6><hr>
+            <div class="flex">
+              <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name}}</h6>
+              <div class="ml-3">
+                <like-button />
+              </div>
+            </div><hr>
               {{-- html 글자수 제한, 뒤에 생략하기. 밑에는 링크 --}}
               {{-- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=kjcc2012&logNo=220640250414 --}}
               <p class="card-text mt-3" style="width:130px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; ">{{ $post->content }}</p>

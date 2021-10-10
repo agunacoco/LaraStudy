@@ -79,12 +79,15 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id\
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        // eager lodding
+        // 
+        $post = Post::with('likers')->find($id);
+
         return view('bbs.show', ['post'=>$post]);
     }
 
