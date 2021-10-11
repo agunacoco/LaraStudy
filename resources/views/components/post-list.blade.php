@@ -17,7 +17,7 @@
             <div class="flex">
               <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name}}</h6>
               <div class="ml-3">
-                <like-button />
+                <like-button :post="{{ $post}}" :loginuser="{{  auth()->user()->id }}" />
               </div>
             </div><hr>
               {{-- html 글자수 제한, 뒤에 생략하기. 밑에는 링크 --}}
