@@ -54,4 +54,8 @@
         </form>
       </div>
   </div>
+
+  <div class="card mb-3">
+    <comment-list :post="{{ $post }}" :loginUser="{{ auth()->user()->id }}"/>
+  </div>
 </div>

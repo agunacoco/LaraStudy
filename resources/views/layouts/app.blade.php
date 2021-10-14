@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -34,6 +34,11 @@
             </main>
         </div>
         <script>
+
+            @if(session('success'))
+                showSuccessMsg();
+            @endif
+
             function onDelete(e){
               myform = document.getElementById('form');
               flag = confirm('삭제하시겠습니까?');
@@ -54,6 +59,15 @@
                 // submit()은 form을 전송
                 editForm.submit();
                 return false;
+            }
+            function showSuccessMsg(){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
           </script>
     </body>

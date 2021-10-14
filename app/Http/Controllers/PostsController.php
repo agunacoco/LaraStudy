@@ -20,7 +20,7 @@ class PostsController extends Controller
     {
         // get 메소드를 사용하여 결과를 가져올 수 있다.
         // $posts = Post::orderBy('updated_at', 'desc')->get();
-        
+    
         // latest 와 oldest 메소드는 여러준이 손쉽게 날짜를 기반으로 결과를 정렬. 
         // 기본적으로 결과는 created_at 컬럼을 기준으로 정렬.
         $posts = Post::latest('updated_at')->with('likers')->paginate(6);
@@ -73,7 +73,7 @@ class PostsController extends Controller
         Post::create($input);
 
         // post방식으로 전달하면 view보다 redirect를 한다.
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success', 1);
     }
 
     /**
