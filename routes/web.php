@@ -26,6 +26,10 @@ Route::get('/', function () {
 
 Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name("like.store");
 
+Route::get('/comment/{id}',[CommentsController::class, 'index'])->name('commment.index');
+Route::post('/comment/{id}', [CommentsController::class, "store"])->middleware(['auth'])->name("comment.store");
+Route::put('/comment/{id}', [CommentsController::class, "update"])->middleware(['auth'])->name("comment.update");
+Route::delete('/comment/{id}', [CommentsController::class, "destroy"])->middleware(['auth'])->name("comment.destroy");
 
 // 요청을 보내는 http method 
 // get 서버 자원을 읽을 때
