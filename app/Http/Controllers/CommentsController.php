@@ -13,12 +13,11 @@ class CommentsController extends Controller
 
         $comments = Comment::where('post_id' , $id)->latest('created_at');
 
-        
     }
     public function destroy($id){
 
     }
-    public function update(){
+    public function update($id){
 
     }
 }
