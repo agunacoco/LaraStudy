@@ -1,7 +1,6 @@
 <template>
   <!-- component -->
-  <div>
-    <!-- component -->
+  <div x-data="{ open1: false, open2: false }">
     <div class="bg-gray-100 flex justify-center items-center">
       <div
         class="
@@ -22,11 +21,11 @@
               <div class="flex justify-center items-center space-x-2">
                 <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
                   <div class="font-medium">
-                    <a href="#" class="hover:underline text-sm">
-                      <small>Ganendra</small>
-                    </a>
+                    <small>Ganendra</small>
                   </div>
-                  <div class="text-xs">{{ comment }}</div>
+                  <div class="text-xs">
+                    {{ comment }}
+                  </div>
                 </div>
               </div>
               <div class="flex justify-start items-center text-xs w-full">
@@ -42,11 +41,11 @@
                   "
                 >
                   <a href="#" class="hover:underline">
-                    <small>Update</small>
+                    <small>Like</small>
                   </a>
                   <small class="self-center">.</small>
                   <a href="#" class="hover:underline">
-                    <small>Delete</small>
+                    <small>Reply</small>
                   </a>
                   <small class="self-center">.</small>
                   <a href="#" class="hover:underline">
@@ -57,6 +56,8 @@
             </div>
           </div>
         </div>
+
+        <!-- New Comment Paste Here -->
       </div>
     </div>
   </div>
