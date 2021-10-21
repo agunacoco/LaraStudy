@@ -9,6 +9,12 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'comment',
+        'user_id',
+        'post_id'
+    ];
+
     public function user(){
         // this는 이 객체를 말한다.
         // belongsTo는 user 모델에 속한다라는 의미.

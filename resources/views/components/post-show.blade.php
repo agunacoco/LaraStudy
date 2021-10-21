@@ -56,6 +56,6 @@
   </div>
 
   <div class="card mb-3">
-    <comment-list :post="{{ $post }}" :loginUser="{{ auth()->user()->id }}"/>
+    <comment-list :post="{{ $post }}" :loginuser="{{ auth()->user()->id }}"/>
   </div>
 </div>
