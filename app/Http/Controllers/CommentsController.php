@@ -28,10 +28,9 @@ class CommentsController extends Controller
 
         $comment = Comment::find($comment_id);
         $comment->update([
-            'comment' => $comment
-        ])
-        $comment->update($request->all());
-        return $comment
+            'comment' => $comment,
+        ]);
+        return $comment;
 
     }
 }
