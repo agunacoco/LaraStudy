@@ -31,6 +31,5 @@ class CommentsController extends Controller
             'comment' => $comment,
         ]);
         return $comment;
-
     }
 }
