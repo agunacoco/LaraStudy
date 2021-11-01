@@ -18,7 +18,7 @@ class CommentsController extends Controller
         ]);
 
         $comment = Comment::create([
-                        'comment' => $request->content,
+                        'comment' => $request->input('comment'),
                         'user_id' => auth()->user()->id, // auth 헬퍼 사용.
                         'post_id' => $id
                     ]);
@@ -28,7 +28,7 @@ class CommentsController extends Controller
     }
     public function index($id){
 
-        $comments = Comment::where('post_id' , $id)->latest('created_at')->get();
+        $comments = Comment::with('user')->where('post_id' , $id)->latest('created_at')->get();
         return $comments;
     }
     public function destroy($commentId){
