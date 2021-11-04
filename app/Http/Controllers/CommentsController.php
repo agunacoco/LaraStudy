@@ -28,7 +28,7 @@ class CommentsController extends Controller
     }
     public function index($id){
 
-        $comments = Comment::with('user')->where('post_id' , $id)->latest('created_at')->get();
+        $comments = Comment::with('user')->where('post_id' , $id)->latest('created_at')->paginate(3);
         return $comments;
     }
     public function destroy($commentId){

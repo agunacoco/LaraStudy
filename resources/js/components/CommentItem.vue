@@ -6,7 +6,7 @@
         <div class="flex items-center space-x-2">
           <div class="flex items-center justify-center space-x-2">
             <div class="block">
-              <div class="flex justify-center items-center space-x-2">
+              <div class="flex justify-start items-center space-x-2">
                 <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
                   <div class="text-base">
                     <small>{{ comment.user.name }}</small>
@@ -33,12 +33,10 @@
                   </a>
                   <small class="self-center">.</small>
                   <a href="#" class="hover:underline">
-                    <small>Reply</small>
+                    <small>Delete</small>
                   </a>
                   <small class="self-center">.</small>
-                  <a href="#" class="hover:underline">
-                    <small>{{ comment.updated_at }}</small>
-                  </a>
+                  <small>{{ comment.updated_at }}</small>
                 </div>
               </div>
             </div>
