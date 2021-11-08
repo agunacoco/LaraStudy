@@ -26,10 +26,16 @@
           </div>
         </div>
       </div>
+      @if ($post->user->id == auth()->user()->id)
+        
+      @endif
+      
+    
       <div class="card-body flex">
-
+        @can('update', $post)
         {{-- a태그로 보내면 get 방식으로 간다.   --}}
         <a href="{{ route( 'posts.edit', ['post'=>$post->id] ) }}" class="card-link">Update</a>
+        @endcan
         
         {{-- post 방식의 delete 방식인 destroy 라우터는 form 태그를 사용해야한다. --}}
         {{-- post 방식은 무조건 form 태그 --}}
@@ -38,7 +44,7 @@
         {{-- preventDefault 를 통해 이러한 동작을 막아줄 수 있습니다. --}}
         {{-- 1. a 태그를 눌렀을때도 href 링크로 이동하지 않게 할 경우 --}}
         {{-- 2. form 안에 submit 역할을 하는 버튼을 눌렀어도 새로 실행하지 않게 하고싶을 경우 (submit은 작동됨) --}}
-        
+        @can('delete', $post)
         <form id="form" class="ml-4" action="{{ route( 'posts.destroy', ['post'=>$post->id] )}}" method="post"
           onsubmit="onDelete(event)">
           {{-- form 태그는 put, patch, delete 액션을 지원하지 않는다. --}}
@@ -52,6 +58,8 @@
           @method('delete')
           <button type="submit">Delete</button>
         </form>
+        @endcan
+       
       </div>
   </div>
 

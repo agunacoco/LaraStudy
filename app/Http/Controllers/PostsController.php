@@ -98,8 +98,13 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
 
+        $post = Post::find($id);
+        // if($request->user()->cannot('update', $post)){
+        //     abort(403);
+        // }
+
+        $this->authorize('update', $post);
         return view('bbs.edit', ['post'=>$post]);
     }
 
@@ -121,6 +126,8 @@ class PostsController extends Controller
         ]);
 
         $post = Post::find($id);
+
+        $this->authorize('update', $post);
 
         if($request->hasFile('image')){
 
@@ -151,7 +158,11 @@ class PostsController extends Controller
     {
         // DI, Dependency, Injection, 의존성 주입
         // dd($request);
+
         $post = Post::find($id);
+
+        $this->authorize('delete', $post);
+
         if($post->image){
             Storage::delete('public/images/'.$post->image);
         }
@@ -163,6 +174,9 @@ class PostsController extends Controller
     public function deleteImage($id)
     {
         $post = Post::find($id);
+        
+        $this->authorize('delete', $post);
+
         Storage::delete('public/images'.$post->image);
         $post->image = null;
         $post->save();

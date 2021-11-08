@@ -19,6 +19,7 @@
       v-for="(comment, index) in comments.data"
       :key="index"
       :comment="comment"
+      :login_user_id="loginuser"
     />
     <pagination-link
       @pageClicked="getPage($event)"
