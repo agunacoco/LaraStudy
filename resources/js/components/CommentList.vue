@@ -20,6 +20,7 @@
       :key="index"
       :comment="comment"
       :login_user_id="loginuser"
+      @deleted="getComments"
     />
     <pagination-link
       @pageClicked="getPage($event)"

@@ -11,7 +11,7 @@
                   <div class="text-base">
                     <small>{{ comment.user.name }}</small>
                   </div>
-                  <div class="text-base">
+                  <div class="text-base" :id="'comment' + comment.id">
                     {{ comment.comment }}
                   </div>
                 </div>
@@ -28,21 +28,12 @@
                     space-x-1
                   "
                 >
-                  <a
-                    href="#"
-                    class="hover:underline"
-                    v-if="comment.user_id == login_user_id"
-                  >
+                  <button @click="updateComment" class="hover:underline">
                     <small>Update</small>
-                  </a>
-                  <small class="self-center">.</small>
-                  <a
-                    href="#"
-                    class="hover:underline"
-                    v-if="comment.user_id == login_user_id"
-                  >
+                  </button>
+                  <button @click="deleteComment" class="hover:underline">
                     <small>Delete</small>
-                  </a>
+                  </button>
                   <small class="self-center">.</small>
                   <small>{{ comment.updated_at }}</small>
                 </div>
@@ -60,5 +51,31 @@
 <script>
 export default {
   props: ["comment", "login_user_id"],
+  data() {
+    return {
+      newComment: "",
+    };
+  },
+  methods: {
+    deleteComment() {
+      if (confirm("Are you sure?")) {
+        axios
+          .delete("/comment/" + this.comment.id)
+          .then((response) => {
+            console.log(response.data);
+            // this.$parent.getComments();
+            this.$emit("deleted");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    updateComment() {
+      $("#comment" + this.comment.id).html(
+        "<textarea v-model='newComment'>" + this.comment.comment + "</textarea>"
+      );
+    },
+  },
 };
 </script>

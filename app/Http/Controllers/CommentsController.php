@@ -31,11 +31,15 @@ class CommentsController extends Controller
         $comments = Comment::with('user')->where('post_id' , $id)->latest('created_at')->paginate(3);
         return $comments;
     }
-    public function destroy($commentId){
+    public function destroy(Request $request, $commentId){
 
         $comment = Comment::find($commentId);
-        $comment->delete();
-        
+        if($request->user()->can('delete', $comment)){
+            $comment->delete();
+            return $comment;
+        } else{
+            abort(403);
+        }
         return $comment;
     }
     public function update(Request $request, $comment_id){
@@ -43,8 +47,9 @@ class CommentsController extends Controller
         $request->validate(['comment'=>'required']);
 
         $comment = Comment::find($comment_id);
+        $this->authorize('update', $comment);
         $comment->update([
-            'comment' => $request->content,
+            'comment' => $request->input('content'),
         ]);
         return $comment;
     }
