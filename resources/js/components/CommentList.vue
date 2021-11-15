@@ -8,6 +8,7 @@
           class="m-2 form-control"
           id="comment"
           v-model="comment"
+          required
         />
         <button type="submit" class="btn btn-primary m-2">Submit</button>
       </div>
@@ -16,8 +17,8 @@
       댓글 불러오기
     </button>
     <comment-item
-      v-for="(comment, index) in comments.data"
-      :key="index"
+      v-for="comment in comments.data"
+      :key="comment.id"
       :comment="comment"
       :login_user_id="loginuser"
       @deleted="getComments"
@@ -50,7 +51,7 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           this.comments = response.data;
         })
         .catch((error) => {
@@ -86,6 +87,13 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.getComments();
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "댓글등록",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.comment = "";
         })
         .catch((error) => {

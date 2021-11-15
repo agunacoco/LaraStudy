@@ -49,7 +49,7 @@ class CommentsController extends Controller
         $comment = Comment::find($comment_id);
         $this->authorize('update', $comment);
         $comment->update([
-            'comment' => $request->input('content'),
+            'comment' => $request->input('comment'),
         ]);
         return $comment;
     }

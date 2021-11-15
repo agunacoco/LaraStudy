@@ -11,9 +11,21 @@
                   <div class="text-base">
                     <small>{{ comment.user.name }}</small>
                   </div>
-                  <div class="text-base" :id="'comment' + comment.id">
-                    {{ comment.comment }}
-                  </div>
+                  <input
+                    class="text-xs"
+                    v-model="newComment"
+                    :readonly="!updateClicked"
+                    type="text"
+                    :id="'comment' + comment.id"
+                    required
+                  />
+                  <small
+                    v-show="updateClicked"
+                    @click="updateComment"
+                    v-if="comment.user_id == login_user_id"
+                    class="px-2 hover:bg-blue-400"
+                    >Save</small
+                  >
                 </div>
               </div>
               <div class="flex justify-start items-center text-sm w-full">
@@ -28,13 +40,20 @@
                     space-x-1
                   "
                 >
-                  <button @click="updateComment" class="hover:underline">
+                  <button
+                    @click="enableUpdate"
+                    v-if="comment.user_id == login_user_id"
+                    class="hover:underline"
+                  >
                     <small>Update</small>
                   </button>
-                  <button @click="deleteComment" class="hover:underline">
+                  <button
+                    v-if="comment.user_id == login_user_id"
+                    @click="deleteComment"
+                    class="hover:underline"
+                  >
                     <small>Delete</small>
                   </button>
-                  <small class="self-center">.</small>
                   <small>{{ comment.updated_at }}</small>
                 </div>
               </div>
@@ -54,7 +73,11 @@ export default {
   data() {
     return {
       newComment: "",
+      updateClicked: false,
     };
+  },
+  created() {
+    this.newComment = this.comment.comment;
   },
   methods: {
     deleteComment() {
@@ -65,16 +88,42 @@ export default {
             console.log(response.data);
             // this.$parent.getComments();
             this.$emit("deleted");
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "댓글삭제",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           })
           .catch((error) => {
             console.log(error);
           });
       }
     },
+    enableUpdate() {
+      this.updateClicked = true;
+    },
     updateComment() {
-      $("#comment" + this.comment.id).html(
-        "<textarea v-model='newComment'>" + this.comment.comment + "</textarea>"
-      );
+      axios
+        .patch("/comment/" + this.comment.id, {
+          comment: this.newComment,
+        })
+        .then((response) => {
+          console.log(response.status);
+          console.log("댓글 수정 성공");
+          this.updateClicked = false;
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "댓글수정성공",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

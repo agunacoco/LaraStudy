@@ -48,6 +48,7 @@
                 e.preventDefault(); 
               }
             }
+
             function deleteImage(id){
                 // getElementById는 id가 editForm인 form을 찾는다
                 editForm = document.getElementById('editForm'); 
