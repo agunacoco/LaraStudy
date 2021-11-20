@@ -2,7 +2,6 @@
   <div class="row row-cols-1 row-cols-md-2 g-4">
       @foreach ($posts as $post )
       <div class="col mb-3">
-        
           <div class="card">
             <a href="{{ route('posts.show', ['post'=>$post->id]) }}">
             @if ($post->image)
